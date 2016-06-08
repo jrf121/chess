@@ -44,7 +44,7 @@ public class Main {
 					System.out.println("White wins");
 					break;
 				}
-				bMoves.get((int)(Math.random() * bMoves.size())).exicute();
+				//bMoves.get((int)(Math.random() * bMoves.size())).exicute();
 				//Thread.sleep(100);
 			}
 			while(board.getGlobalMoves() % 2 == 1) Thread.sleep(10);
