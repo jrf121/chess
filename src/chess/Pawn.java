@@ -46,14 +46,6 @@ public class Pawn extends Piece{
 				((Pawn) p.getPiece()).lastGlobalMoveID == getBoard().getGlobalMoves() - 1){
 			l.add(getBoard().getPosition(getRow() + direction, getCol() + 1));
 		}
-		Object[] arr = l.toArray();
-		if (this.getBoard().getKing(this.getTeam()).isThreatened() || isThreatened()){
-			for (int i = 0; i < arr.length; i++){
-				if (moveThreatensKing((BoardPosition) arr[i])){
-					l.remove(arr[i]);
-				}
-			}
-		}
 		return l;
 	}
 	

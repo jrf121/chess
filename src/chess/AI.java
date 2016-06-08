@@ -8,19 +8,6 @@ import chess.Piece.Team;
 
 public class AI {
 	
-	class Move{
-		BoardPosition moveTo;
-		Piece piece;
-		
-		Move(BoardPosition moveTo, Piece piece){
-			this.moveTo = moveTo;
-			this.piece = piece;
-		}
-		void exicute(){
-			piece.moveTo(moveTo);
-		}
-	}
-	
 	private Team team;
 	private Board board;
 	private ArrayList<Piece> pieces;
@@ -47,4 +34,18 @@ public class AI {
 		return moves;
 	}
 
+	
+	
+	class Move{
+		BoardPosition moveTo;
+		Piece piece;
+		
+		Move(BoardPosition moveTo, Piece piece){
+			this.moveTo = moveTo;
+			this.piece = piece;
+		}
+		void exicute(){
+			piece.moveTo(moveTo);
+		}
+	}
 }

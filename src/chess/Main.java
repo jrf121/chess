@@ -30,23 +30,26 @@ public class Main {
 		AI white = new AI(Team.white, board);
 		List<Move> bMoves;
 		List<Move> wMoves;
-		int lol = 5;
-		while(true) {
-			wMoves = white.getMoves();
-			if (wMoves.isEmpty()){
-				System.out.println("Black wins");
-				break;
+		while (true) {
+			synchronized(Main.class) {
+				wMoves = white.getMoves();
+				if (!board.getKing(Team.white).isAlive()){
+					System.out.println("Black wins");
+					break;
+				}
+				wMoves.get((int)(Math.random() * wMoves.size())).exicute();
+				//Thread.sleep(100);
+				bMoves = black.getMoves();
+				if (!board.getKing(Team.black).isAlive()){
+					System.out.println("White wins");
+					break;
+				}
+				bMoves.get((int)(Math.random() * bMoves.size())).exicute();
+				//Thread.sleep(100);
 			}
-			wMoves.get((int)(Math.random() * wMoves.size())).exicute();
-			//Thread.sleep(100);
-			bMoves = black.getMoves();
-			if (bMoves.isEmpty()){
-				System.out.println("White wins");
-				break;
-			}
-			bMoves.get((int)(Math.random() * bMoves.size())).exicute();
-			//Thread.sleep(100);
-		}
+			while(board.getGlobalMoves() % 2 == 1) Thread.sleep(10);
+		
+		} 
 		
 	}
 

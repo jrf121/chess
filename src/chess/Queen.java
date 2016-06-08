@@ -11,20 +11,6 @@ public class Queen extends Bishop{
 	}
 
 	@Override
-	public List<BoardPosition> getAvailableMoveLocations() {
-		List<BoardPosition> l = getThreatenedSpaces();
-		Object[] arr = l.toArray();
-		if (this.getBoard().getKing(this.getTeam()).isThreatened() || isThreatened()){
-			for (int i = 0; i < arr.length; i++){
-				if (moveThreatensKing((BoardPosition) arr[i])){
-					l.remove(arr[i]);
-				}
-			}
-		}
-		return l;
-	}
-	
-	@Override
 	public List<BoardPosition> getThreatenedSpaces() {
 		List<BoardPosition> l = super.getThreatenedSpaces();
 		for (int i = Math.max(getRow() - 1, 1); i >= 1; i--){

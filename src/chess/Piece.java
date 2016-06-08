@@ -115,17 +115,13 @@ public abstract class Piece {
 		p.setPiece(this);
 	}
 	
-	public boolean moveThreatensKing(BoardPosition p){
-		BoardPosition oldPosition = this.position;
-		Piece oldPiece = this.forceMoveTo(p, null);
-		boolean isThreatened = getBoard().getKing(getTeam()).isThreatened();
-		
-		this.forceMoveTo(oldPosition, oldPiece);
-		return isThreatened;
-	}
 	
 	public void kill(){
 		isAlive = false;
+	}
+	
+	public boolean isAlive() {
+		return isAlive;
 	}
 	
 	public Board getBoard(){

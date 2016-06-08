@@ -35,26 +35,28 @@ public class BoardPosition {
 			}
 			
 			public void actionPerformed(ActionEvent action) {
-				if (action.getSource() != position.getButton()){
-					return;
-				}
-				if (activePiece == null && !position.isOccupied()){
-					return;
-				}
-				if (activePiece != null && (!position.isOccupied() || position.hasTeam(activePiece.getEnemy()))){
-					activePiece.moveTo(position);
-					activePiece.getBoard().unpaint();
-					activePiece = null;
-				}
-				else {
-					Piece p = position.getPiece();
-					p.getBoard().unpaint();
-					if (p != activePiece){
-						p.paintMoves();
-						activePiece = p;
+				synchronized(Main.class) {
+					if (action.getSource() != position.getButton()){
+						return;
+					}
+					if (activePiece == null && !position.isOccupied()){
+						return;
+					}
+					if (activePiece != null && (!position.isOccupied() || position.hasTeam(activePiece.getEnemy()))){
+						activePiece.moveTo(position);
+						activePiece.getBoard().unpaint();
+						activePiece = null;
 					}
 					else {
-						activePiece = null;
+						Piece p = position.getPiece();
+						p.getBoard().unpaint();
+						if (p != activePiece){
+							p.paintMoves();
+							activePiece = p;
+						}
+						else {
+							activePiece = null;
+						}
 					}
 				}
 			}

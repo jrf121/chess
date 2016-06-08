@@ -26,7 +26,35 @@ public class King extends Piece{
 		}
 		return l;
 	}
-
+	
+	@Override
+	public List<BoardPosition> getAvailableMoveLocations(){
+		List<BoardPosition> l = super.getAvailableMoveLocations();
+		if(this.getNumMoves() != 0 || this.isThreatened()){
+			return l;
+		}
+		
+		//Now for castling
+		BoardPosition closeP = this.getBoard().getPosition(this.getRow(), 8);
+		BoardPosition farP = this.getBoard().getPosition(this.getRow(), 1);
+		BoardPosition p;
+		if (closeP.getPiece() != null && closeP.getPiece().getNumMoves() == 0){
+			if ((p = this.getBoard().getPosition(this.getRow(), 7)).getPiece() == null && 
+					this.getBoard().getPosition(this.getRow(), 6).getPiece() == null &&
+					!p.isThreatened(this)){
+				l.add(p);
+			}
+		}
+		if (farP.getPiece() != null && farP.getPiece().getNumMoves() == 0){
+			if (this.getBoard().getPosition(this.getRow(), 2).getPiece() == null && 
+					(p = this.getBoard().getPosition(this.getRow(), 3)).getPiece() == null &&
+					this.getBoard().getPosition(this.getRow(), 4).getPiece() == null && 
+					!p.isThreatened(this)){
+				l.add(p);
+			}
+		}
+		return l;
+	}
 	
 	@Override
 	public void moveTo(BoardPosition p) throws IllegalMoveException{
